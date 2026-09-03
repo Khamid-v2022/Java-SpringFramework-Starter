@@ -42,7 +42,7 @@ public class ProductRestController {
     }
 
     @GetMapping("/{id}")
-    public ProductResponse get(@PathVariable Long id) {
+    public ProductResponse get(@PathVariable("id") Long id) {
         return productService.toResponse(productService.findById(id));
     }
 
@@ -54,13 +54,13 @@ public class ProductRestController {
     }
 
     @PutMapping("/{id}")
-    public ProductResponse update(@PathVariable Long id, @Valid @RequestBody ProductForm form) {
+    public ProductResponse update(@PathVariable("id") Long id, @Valid @RequestBody ProductForm form) {
         return productService.toResponse(productService.update(id, form));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable("id") Long id) {
         productService.delete(id);
     }
 

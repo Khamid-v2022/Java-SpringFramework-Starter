@@ -57,7 +57,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable Long id, Model model) {
+    public String editForm(@PathVariable("id") Long id, Model model) {
         Product product = productService.findById(id);
         ProductForm form = new ProductForm();
         form.setId(product.getId());
@@ -72,7 +72,7 @@ public class ProductController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable Long id,
+    public String update(@PathVariable("id") Long id,
                          @Valid @ModelAttribute("productForm") ProductForm form,
                          BindingResult bindingResult,
                          Model model,
@@ -88,7 +88,7 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         productService.delete(id);
         redirectAttributes.addFlashAttribute("successMessage", "Product deleted.");
         return "redirect:/products";
