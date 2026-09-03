@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{layout :: nav}"></div>
+<main class="container mb-5">
+    <div class="alert alert-danger">
+        <h1 class="h4" th:text="${pageTitle}">Error</h1>
+        <p class="mb-0" th:text="${errorMessage}">Unexpected error</p>
+    </div>
+    <a class="btn btn-primary" th:href="@{/products}">Back to Products</a>
+</main>
+<div th:replace="~{layout :: scripts}"></div>
+</body>
+</html>

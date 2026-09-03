@@ -1,0 +1,13 @@
+body {
+    background: #f6f8fb;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+#apiOutput {
+    white-space: pre-wrap;
+    word-break: break-word;
+}

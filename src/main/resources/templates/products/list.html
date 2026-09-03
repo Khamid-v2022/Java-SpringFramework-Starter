@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head(${pageTitle})}"></head>
+<body>
+<div th:replace="~{layout :: nav}"></div>
+
+<main class="container mb-5">
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div>
+            <h1 class="h3 mb-1">Products</h1>
+            <p class="text-muted mb-0">CRUD sample with Bootstrap 5, jQuery, and DataTables</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-outline-success" th:href="@{/products/export/excel(q=${q})}">
+                <i class="fa-solid fa-file-excel"></i> Excel
+            </a>
+            <a class="btn btn-outline-danger" th:href="@{/products/export/pdf(q=${q})}">
+                <i class="fa-solid fa-file-pdf"></i> PDF
+            </a>
+            <a class="btn btn-outline-primary" th:href="@{/products/export/word(q=${q})}">
+                <i class="fa-solid fa-file-word"></i> Word
+            </a>
+            <a class="btn btn-primary" th:href="@{/products/new}">
+                <i class="fa-solid fa-plus"></i> New Product
+            </a>
+        </div>
+    </div>
+
+    <form class="row g-2 mb-3" method="get" th:action="@{/products}">
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="q" th:value="${q}"
+                   placeholder="Search by name..."/>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-secondary">Search</button>
+            <a class="btn btn-light" th:href="@{/products}">Reset</a>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table id="productsTable" class="table table-striped table-hover align-middle w-100">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Created</th>
+                <th class="text-end">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${products}">
+                <td th:text="${p.id}">1</td>
+                <td th:text="${p.name}">Name</td>
+                <td th:text="${p.description}">Desc</td>
+                <td th:text="${#numbers.formatDecimal(p.price, 1, 2)}">0.00</td>
+                <td th:text="${p.quantity}">0</td>
+                <td th:text="${p.createdAt != null ? #temporals.format(p.createdAt, 'yyyy-MM-dd HH:mm') : ''}"></td>
+                <td class="text-end text-nowrap">
+                    <a class="btn btn-sm btn-outline-primary" th:href="@{/products/{id}/edit(id=${p.id})}">Edit</a>
+                    <form class="d-inline" th:action="@{/products/{id}/delete(id=${p.id})}" method="post"
+                          onsubmit="return confirm('Delete this product?');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<div th:replace="~{layout :: scripts}"></div>
+<script th:inline="none">
+    $(function () {
+        $('#productsTable').DataTable({
+            pageLength: 10,
+            order: [[0, 'asc']],
+            columnDefs: [{orderable: false, targets: -1}]
+        });
+    });
+</script>
+</body>
+</html>

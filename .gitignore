@@ -1,0 +1,9 @@
+.tools/
+target/
+.idea/
+*.iml
+.vscode/
+*.log
+*.war
+.DS_Store
+Thumbs.db

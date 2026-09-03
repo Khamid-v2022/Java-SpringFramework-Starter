@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Offline Maven settings.
+  Copy this file to:  %USERPROFILE%\.m2\settings.xml   (Windows)
+
+  Note: localRepository is intentionally NOT set here.
+  Keep the repository at the default location (%USERPROFILE%\.m2\repository)
+  so a changing USB drive letter can never break the build.
+-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <!-- Never try to reach the internet: fails fast instead of long timeouts -->
+    <offline>true</offline>
+
+</settings>
